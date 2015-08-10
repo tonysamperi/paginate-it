@@ -58,6 +58,7 @@ $.paginateIt = function ($target, $count) {
                 $target.empty().append(self.visibleData);
                 self.pagCurrent.text(self.page);
                 self.pagTotal.text(self.totalPages);
+				break;
             default:
                 console.error("WRONG ACTION!");
                 break;
@@ -69,7 +70,7 @@ $.paginateIt = function ($target, $count) {
 $(document).ready(function(){
     $("[paginate]").each(function(){
         if (isNaN(parseInt($(this).attr("paginate")))) {
-            console.error("invalid \"paginate\" attribute at row[paginate]", $(this));
+            console.error("invalid \"paginate\" attribute at [paginate]", $(this));
             //SKIP TO NEXT ITERATION
             return true;
         }
