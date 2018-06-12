@@ -42,6 +42,12 @@
         color: #DDD;\
         cursor: default;\
      }\
+     \
+      span." + classNames.paginatorPrev + "." + classNames.disabled + ":hover,\
+     span." + classNames.paginatorNext + "." + classNames.disabled + ":hover {\
+        font-weight: initial;\
+     }\
+     \
     ";
 
     void 0 !== document && function (e, t) {
@@ -110,7 +116,7 @@
         <div class='col-lg-9 col-md-8 col-sm-7 col-xs-6'></div>\
             <div class='col-lg-3 col-md-4 col-sm-5 col-xs-6'> \
                 <div class='pull-right'> \
-                    <span title='previous-page' class='paginator-prev nav-disabled'>&lt;&nbsp;</span>  \
+                    <span title='previous-page' class='paginator-prev " + classNames.disabled + "'>&lt;&nbsp;</span>  \
                     <span>page</span> <span class='currentPage'></span> \
                     <span>&nbsp;of&nbsp;</span><span class='totalPages'></span> \
                     <span class='paginator-next'>&nbsp;&gt;</span> \
@@ -133,32 +139,25 @@
         this.pagPrev.on("click", function () {
             self.nav("prev");
         });
+
         this.nav = function (action) {
             switch (action) {
                 case "prev":
                     if (self.page > 1) {
-                        self.pagPrev.removeClass(classNames.disabled);
                         self.page--;
                         self.visibleData = self.fullData.slice((self.page - 1) * self.count, self.page * self.count);
                         $target.empty().append(self.visibleData);
                         self.pagCurrent.text(self.page);
                         self.pagTotal.text(self.totalPages);
                     }
-                    else {
-                        self.pagPrev.addClass(classNames.disabled);
-                    }
                     break;
                 case "next":
                     if (self.page < self.totalPages) {
-                        self.pagNext.removeClass(classNames.disabled);
-                        this.page++;
+                        self.page++;
                         self.visibleData = self.fullData.slice((self.page - 1) * self.count, self.page * self.count);
                         $target.empty().append(self.visibleData);
                         self.pagCurrent.text(self.page);
                         self.pagTotal.text(self.totalPages);
-                    }
-                    else {
-                        self.pagNext.addClass(classNames.disabled);
                     }
                     break;
                 case "boot":
@@ -174,12 +173,15 @@
                     console.error("WRONG ACTION!");
                     break;
             }
+            self.pagPrev.toggleClass(classNames.disabled, self.page === 1);
+            self.pagNext.toggleClass(classNames.disabled, self.page === self.totalPages);
         };
         self.nav("boot");
     };
 
     $(document).ready(function () {
-        $("[paginate]").each(function (opts) {
+        $("[paginate]").each(function () {
+            var opts = {};
             var paginateAttr = $(this).attr("paginate") * 1;
             var navAttr = $(this).attr("nav-before");
             if (isNaN(parseInt(paginateAttr))) {
