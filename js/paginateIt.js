@@ -17,6 +17,10 @@ var style = "\
  span.paginator-next {\
 	cursor: pointer;\
 	color: #18bc9c;\
+	-webkit-user-select: none; /* Safari 3.1+ */\
+    -moz-user-select: none; /* Firefox 2+ */\
+    -ms-user-select: none; /* IE 10+ */\
+    user-select: none; /* Standard syntax */\
  }\
  \
  span.paginator-prev:hover,\
@@ -95,7 +99,9 @@ $.paginateIt = function ($target, $count) {
                 $target.empty().append(self.visibleData);
                 self.pagCurrent.text(self.page);
                 self.pagTotal.text(self.totalPages);
-				$target.css("minHeight", $target.height());
+			    $target.find("img:last").on("load", function(){
+			    	$target.css("minHeight", $target.height());
+			    });
 				break;
             default:
                 console.error("WRONG ACTION!");
