@@ -1,6 +1,43 @@
 /**
-	paginateIt by Tony Samperi 2015
-**/
+ *	paginateIt by Tony Samperi 2018
+ */
+var style = "\
+ div.paginator {\
+	display: block;\
+	float: left;\
+	width: 100%;\
+	clear: both;\
+ }\
+ \
+ div.paginator:after {\
+	display: table;\
+ }\
+ \
+ span.paginator-prev,\
+ span.paginator-next {\
+	cursor: pointer;\
+	color: #18bc9c;\
+ }\
+ \
+ span.paginator-prev:hover,\
+ span.paginator-next:hover {\
+	font-weight: bold;\
+ }\
+";
+ 
+"undefined" != typeof document && function(e, t) {
+    var n = e.createElement("style");
+    if (e.getElementsByTagName("head")[0].appendChild(n),
+    n.styleSheet)
+        n.styleSheet.disabled || (n.styleSheet.cssText = t);
+    else
+        try {
+            n.innerHTML = t
+        } catch (e) {
+            n.innerText = t
+        }
+}(document, style);
+ 
 $.paginateIt = function ($target, $count) {
     var self = this;
     this.fullData = $target.children().clone();
@@ -14,10 +51,10 @@ $.paginateIt = function ($target, $count) {
                         '<div class="col-lg-9 col-md-8 col-sm-7 col-xs-6"></div>'+
                         '<div class="col-lg-3 col-md-4 col-sm-5 col-xs-6">'+
                            '<div class="pull-right">'+
-                                '<a class="paginator-prev">&lt; </a> '+
-                                '<span>pagina</span> <span class="currentPage"></span>'+
-                                '<span>di</span><span class="totalPages"></span>'+
-                                '<a class="paginator-next">&gt;</a>'+
+                                '<span class="paginator-prev">&lt; </span> '+
+                                '<span>page</span> <span class="currentPage"></span>'+
+                                '<span>&nbsp;of&nbsp;</span><span class="totalPages"></span>'+
+                                '<span class="paginator-next"> &gt;</span>'+
                             '</div>'+
                         '</div>'+
                     '</div>';
@@ -58,6 +95,7 @@ $.paginateIt = function ($target, $count) {
                 $target.empty().append(self.visibleData);
                 self.pagCurrent.text(self.page);
                 self.pagTotal.text(self.totalPages);
+				$target.css("minHeight", $target.height());
 				break;
             default:
                 console.error("WRONG ACTION!");

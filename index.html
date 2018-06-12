@@ -89,56 +89,22 @@
     <section id="demo">
         <div class="container">
 
-            <div class="row" paginate="6">
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-01.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-02.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-03.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-04.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-05.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-06.jpg" class="img-responsive" alt="">
-                </div>
-				<div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-07.jpg" class="img-responsive" alt="">
-                </div>
-				<div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-08.jpg" class="img-responsive" alt="">
-                </div>
-				<div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-09.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-10.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-11.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/portfolio-12.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/nature-01.jpg" class="img-responsive" alt="">
-                </div>
-                <div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/nature-02.jpg" class="img-responsive" alt="">
-                </div>
-				<div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/nature-03.jpg" class="img-responsive" alt="">
-                </div>
-				<div class="col-sm-4 portfolio-item">
-					<img src="http://yootheme.com/demo/widgetkit/joomla/images/yootheme/widgetkit/nature-04.jpg" class="img-responsive" alt="">
-                </div>
-            </div>
+            <div id="ts-gallery" class="row" paginate="6"></div>
+			<script>
+			    var tpl, suffix;
+			    var $gallery = $("#ts-gallery");
+				var placeholder = "{{number}}";
+				var regex = new RegExp(placeholder, "g");
+				var template = "<div class='col-sm-4 portfolio-item'>" +
+						"<img src='./assets/portfolio-" + placeholder + ".jpg' class='img-responsive' alt='Image '" + placeholder+ " />" +
+					"</div>";
+				for(var i=1; i<=12; i++){
+				    suffix = ("0" + i).slice(-2);
+					tpl = template.replace(regex,suffix);
+					$gallery.append($(tpl));
+				}
+				
+			</script>
         </div>
     </section>
 
